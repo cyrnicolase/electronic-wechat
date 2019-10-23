@@ -39,8 +39,8 @@ class WeChatWindow {
   resizeWindow(isLogged, splashWindow) {
     const size = isLogged ? Common.WINDOW_SIZE : Common.WINDOW_SIZE_LOGIN;
 
-    this.wechatWindow.setResizable(isLogged);
     this.wechatWindow.setSize(size.width, size.height);
+    this.wechatWindow.setResizable(isLogged);
     if (this.loginState.current === 1 - isLogged || this.loginState.current === this.loginState.WAITING) {
       splashWindow.hide();
       this.show();
@@ -57,19 +57,20 @@ class WeChatWindow {
       show: false,
       frame: true,
       autoHideMenuBar: true,
+      darkTheme: false,
       icon: path.join(__dirname, '../../../assets/icon.png'),
-      titleBarStyle: 'hidden-inset',
+      titleBarStyle: 'hiddenInset',
       webPreferences: {
         javascript: true,
         plugins: true,
         nodeIntegration: false,
-        webSecurity: false,
+        webSecurity: true,
         preload: path.join(__dirname, '../../inject/preload.js'),
       },
     });
 
     /* menu is always visible on xfce session */
-    isXfce().then(data => {
+    isXfce.then(data => {
       if(data) {
         this.wechatWindow.setMenuBarVisibility(true);
         this.wechatWindow.setAutoHideMenuBar(false);

@@ -30,7 +30,8 @@ class ElectronicWeChat {
   }
   checkInstance() {
     if (AppConfig.readSettings('multi-instance') === 'on') return true;
-    return !app.makeSingleInstance((commandLine, workingDirectory) => {
+    app.requestSingleInstanceLock()
+    return app.on('second-instance', (event, commandLine, workingDirectory) => {
       if(this.splashWindow && this.splashWindow.isShown){
         this.splashWindow.show();
         return
@@ -42,7 +43,6 @@ class ElectronicWeChat {
         this.settingsWindow.show();
       }
     });
-
   }
   initApp() {
     app.on('ready', ()=> {
