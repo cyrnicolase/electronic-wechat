@@ -8,6 +8,12 @@ class CSSInjector {
 }
 
 CSSInjector.commonCSS = `
+    div.download_entry {
+      display: none;
+    }
+    div.nav_view {
+      top: 154px !important;
+    }
     div.header, div.title_wrap {
         -webkit-app-region: drag;
     }
