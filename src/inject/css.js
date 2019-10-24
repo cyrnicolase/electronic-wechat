@@ -45,12 +45,12 @@ CSSInjector.commonCSS = `
       display: none !important;
     }
     * {
-      -webkit-user-select: none;
+      -webkit-user-select: text;
       cursor: default !important;
       -webkit-user-drag: none;
     }
     pre, input {
-      -webkit-user-select: initial;
+      -webkit-user-select: text;
       cursor: initial !important;
     }
     html, body {
