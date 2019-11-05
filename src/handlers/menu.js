@@ -217,6 +217,13 @@ class MenuHandler {
             },
           },
           {
+            label: Common.MENU.inputContents,
+            accelerator: 'Ctrl+I',
+            click: () => {
+              $('#editArea').focus();
+            }
+          },
+          {
             label: Common.MENU.devtool,
             accelerator: 'Ctrl+Shift+I',
             click: MenuHandler._devTools,

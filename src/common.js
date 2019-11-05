@@ -90,6 +90,7 @@ Common.MENU = {
   reload: 'Reload This Window',
   toggleFullScreen:'Toggle Full Screen',
   searchContacts:'Search Contacts',
+  inputContents: 'input Contents',
   devtool: 'Toggle DevTools',
   window: 'Window',
   min: 'Minimize',

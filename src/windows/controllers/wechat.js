@@ -38,8 +38,8 @@ class WeChatWindow {
   resizeWindow(isLogged, splashWindow) {
     const size = isLogged ? Common.WINDOW_SIZE : Common.WINDOW_SIZE_LOGIN;
 
-    this.wechatWindow.setResizable(isLogged);
     this.wechatWindow.setSize(size.width, size.height);
+    this.wechatWindow.setResizable(isLogged);
     if (this.loginState.current === 1 - isLogged || this.loginState.current === this.loginState.WAITING) {
       splashWindow.hide();
       this.show();
