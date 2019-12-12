@@ -184,112 +184,151 @@ class MenuHandler {
           }],
       },
     ];
-    const linuxTemplate = [
-      {
-        label: Common.MENU.window,
-        submenu: [
-          {
-            label: Common.MENU.pref,
-            click: MenuHandler._preference,
-          },
-          {
-            label: Common.MENU.reload,
-            accelerator: 'Ctrl+R',
-            click: MenuHandler._reload,
-          },
-          {
-            label: Common.MENU.toggleFullScreen,
-            accelerator: 'F11',
-            click: (item, focusedWindow) => {
-              if (focusedWindow) {
-                focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-              }
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: Common.MENU.searchContacts,
-            accelerator: 'Ctrl+F',
-            click: () => {
-              $('#search_bar input')[0].focus();
-            },
-          },
-          {
-            label: Common.MENU.inputContents,
-            accelerator: 'Ctrl+I',
-            click: () => {
-              $('#editArea').focus();
-            }
-          },
-          {
-            label: Common.MENU.devtool,
-            accelerator: 'Ctrl+Shift+I',
-            click: MenuHandler._devTools,
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: Common.MENU.quit,
-            accelerator: 'Ctrl+Q',
-            click: MenuHandler._quitApp,
-          },
-        ],
-      },
-      {
-        label: Common.MENU.help,
-        submenu: [
-          {
-            label: Common.MENU.repo,
-            click: MenuHandler._github,
-          },
-          {
-            type: 'separator',
-          }, {
-            label: Common.MENU.feedback,
-            click: MenuHandler._githubIssues,
-          }, {
-            label: Common.MENU.checkRelease,
-            click: MenuHandler._update,
-          }],
-      },
-    ];
+	const linuxTemplate = [
+	{
+		label: Common.MENU.window,
+		submenu: [
+			{
+				label: Common.MENU.pref,
+				click: MenuHandler._preference,
+			},
+			{
+				label: Common.MENU.reload,
+				accelerator: 'Ctrl+R',
+				click: MenuHandler._reload,
+			},
+			{
+				label: Common.MENU.toggleFullScreen,
+				accelerator: 'F11',
+				click: (item, focusedWindow) => {
+				if (focusedWindow) {
+					focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+				}
+				},
+			},
+			{
+				label: Common.MENU.devtool,
+				accelerator: 'Ctrl+Shift+I',
+				click: MenuHandler._devTools,
+			},
+			{
+				type: 'separator',
+			},
+			{
+				label: Common.MENU.searchContacts,
+				accelerator: 'Ctrl+F',
+				click: () => {
+					$('#search_bar input')[0].focus();
+				},
+			},
+			{
+				label: Common.MENU.inputContents,
+				accelerator: 'Ctrl+I',
+				click: () => {
+					$('#editArea').focus();
+				}
+			},
+			{
+				label: Common.MENU.toggleUsers,
+				accelerator: 'Ctrl+Tab',
+				click: MenuHandler._toggleUsers,
+			},
+			{
+				label: Common.MENU.toggleFirstUser,
+				accelerator: 'Ctrl+1',
+				click: MenuHandler._toggleFirstUser,
+			},
+			{
+				type: 'separator',
+			},
+			{
+				label: Common.MENU.quit,
+				accelerator: 'Ctrl+Q',
+				click: MenuHandler._quitApp,
+			},
+		],
+	},
+	{
+		label: Common.MENU.help,
+		submenu: [
+		{
+			label: Common.MENU.repo,
+			click: MenuHandler._github,
+		},
+		{
+			type: 'separator',
+		}, {
+			label: Common.MENU.feedback,
+			click: MenuHandler._githubIssues,
+		}, {
+			label: Common.MENU.checkRelease,
+			click: MenuHandler._update,
+		}],
+	},
+	];
 
-    if (platform === 'darwin') {
-      return darwinTemplate;
-    } else if (platform === 'linux') {
-      return linuxTemplate;
-    }
-  }
+		if (platform === 'darwin') {
+			return darwinTemplate;
+		} else if (platform === 'linux') {
+			return linuxTemplate;
+		}
+	}
 
-  static _quitApp() {
-    app.exit(0);
-  }
+	static _quitApp() {
+		app.exit(0);
+	}
 
-  static _reload() {
-    ipcRenderer.send('reload');
-  }
+	static _reload() {
+		ipcRenderer.send('reload');
+	}
 
-  static _devTools() {
-    remote.getCurrentWindow().toggleDevTools();
-  }
+	static _devTools() {
+		remote.getCurrentWindow().toggleDevTools();
+	}
 
-  static _github() {
-    shell.openExternal(Common.GITHUB);
-  }
+	static _github() {
+		shell.openExternal(Common.GITHUB);
+	}
 
-  static _githubIssues() {
-    shell.openExternal(Common.GITHUB_ISSUES);
-  }
+	static _githubIssues() {
+		shell.openExternal(Common.GITHUB_ISSUES);
+	}
 
-  static _update() {
-    ipcRenderer.send('update');
-  }
+	static _update() {
+		ipcRenderer.send('update');
+	}
 
-  static _preference() {
-    ipcRenderer.send('open-settings-window');
-  }
+	static _preference() {
+		ipcRenderer.send('open-settings-window');
+	}
+
+	static _toggleUsers() {
+		let index = 0;
+		let divs = $('#J_NavChatScrollBody > div').children();
+		for(let i = 0; i < divs.length; ++i) {
+			let tmp = divs[i].firstElementChild;
+			if (tmp) {
+				let className = tmp.className;
+				if (className.includes("active")) {
+					index = i;
+					break;
+				}
+			}
+		}
+
+		let next = divs[index + 1];
+		if (!next || !next.firstElementChild) {
+			index = 0;
+			next = divs[1];
+		}
+
+		next.firstElementChild.click();
+	}
+
+	static _toggleFirstUser() {
+		let divs = $('#J_NavChatScrollBody > div').children();
+		let first = divs[1];
+		first.firstElementChild.click();
+	}
 }
 module.exports = MenuHandler;
