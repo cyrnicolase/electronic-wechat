@@ -84,6 +84,7 @@ Common.MENU = {
   searchContacts:'搜索联系人',
   inputContents: '输入聊天内容',
   toggleUsers: '切换用户',
+  reverseToggleUsers: '逆序切换用户',
   toggleFirstUser: '切换到第一个用户',
   devtool: '开发者工具',
   window: '窗口',

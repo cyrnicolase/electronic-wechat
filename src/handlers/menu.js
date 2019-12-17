@@ -232,6 +232,11 @@ class MenuHandler {
 				label: Common.MENU.toggleUsers,
 				accelerator: 'Ctrl+Tab',
 				click: MenuHandler._toggleUsers,
+      },
+      {
+				label: Common.MENU.toggleUsers,
+				accelerator: 'Ctrl+Shift+Tab',
+				click: MenuHandler._reverseToggleUsers,
 			},
 			{
 				label: Common.MENU.toggleFirstUser,
@@ -323,6 +328,29 @@ class MenuHandler {
 		}
 
 		next.firstElementChild.click();
+  }
+  
+  static _reverseToggleUsers() {
+		let index = 0;
+		let divs = $('#J_NavChatScrollBody > div').children();
+		for(let i = 0; i < divs.length; ++i) {
+			let tmp = divs[i].firstElementChild;
+			if (tmp) {
+				let className = tmp.className;
+				if (className.includes("active")) {
+					index = i;
+					break;
+				}
+			}
+		}
+
+		let prefix = divs[index - 1];
+		if (!prefix || !prefix.firstElementChild) {
+			index = 0;
+			prefix = divs[1];
+		}
+
+		prefix.firstElementChild.click();
 	}
 
 	static _toggleFirstUser() {

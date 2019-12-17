@@ -92,6 +92,7 @@ Common.MENU = {
   searchContacts:'Search Contacts',
   inputContents: 'Input Contents',
   toggleUsers: 'Toggle Users',
+  reverseToggleUsers: 'Reverse Toggle Users',
   toggleFirstUser: 'Toggle First User',
   devtool: 'Toggle DevTools',
   window: 'Window',
